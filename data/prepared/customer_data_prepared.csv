@@ -141,7 +141,6 @@ CustomerID,Name,Region,JoinDate,LoyaltyPoints,ContactMethod
 1139,Heather Olson,Central,4/20/2021,889,Email
 1140,Carla Flores,EAST,9/30/2020,56,SMS
 1141,David Palmer,North,9/16/2022,134,Email
-1142,Marvin Hamilton,North,4/23/2022,40000,SMS
 1143,Miss Chelsea Castro DDS,Central,2/23/2021,988,Email
 1144,Brian Browning,EAST,5/3/2023,769,Email
 1145,Stephanie Powell,east,2/3/2023,666,SMS
@@ -199,5 +198,4 @@ CustomerID,Name,Region,JoinDate,LoyaltyPoints,ContactMethod
 1197,William Wilson,West,4/4/2023,178,Email
 1198,Chris Allen,south-west,10/11/2022,403,SMS
 1199,James Cooley,West,7/23/2020,988,Email
-1005,Jessica Mora,South,8/5/2021,487,Email
 1005,Jessica Mora,South,8/5/2021,487,Email
