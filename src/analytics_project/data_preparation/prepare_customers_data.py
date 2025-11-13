@@ -132,7 +132,7 @@ def main() -> None:
     logger.info(f"data/prepared: {PREPARED_DATA_DIR}")
 
     input_file = "customers_data.csv"
-    output_file = "customer_data_prepared.csv"
+    output_file = "customers_data_prepared.csv"
 
     df = read_raw_data(input_file)
     original_shape = df.shape
