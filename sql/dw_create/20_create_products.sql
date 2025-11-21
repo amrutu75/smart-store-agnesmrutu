@@ -10,5 +10,6 @@ CREATE TABLE products (
     category TEXT,
     unit_price REAL,
     stockQuantity INTEGER,
-    Supplier TEXT
+    Supplier TEXT,
+    discount_amount REAL
 );
