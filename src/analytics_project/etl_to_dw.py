@@ -90,6 +90,18 @@ def create_schema(cursor: sqlite3.Cursor) -> None:
         )
     """)
 
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS dim_date (
+            date_key TEXT PRIMARY KEY,    -- 'YYYY-MM-DD'
+            year INTEGER,
+            quarter INTEGER,
+            month INTEGER,
+            month_name TEXT,
+            day INTEGER,
+            weekday_name TEXT
+        )   
+    """)
+
 
 # ===============================================================
 # Insert functions (idempotent)

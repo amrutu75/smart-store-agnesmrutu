@@ -168,3 +168,171 @@ Before starting a new session, remember to do a `git pull` and keep your tools u
 Each time forward progress is made, remember to git add-commit-push.
 
 
+# P5 - Corss Platform Reporting with Power BI and Sparks
+## Objectives
+Connect to a data warehouse for reporting
+Write and execute SQL queries
+Implement OLAP operations including slicing, dicing, and drilldowns
+Create visuals that communicate business insights
+Document analysis results clearly and professionally
+
+Optional data finalization when working with dates  https://denisecase.github.io/smart-sales-example/guide/finalize-datawarehouse/
+
+Instructions
+See the instructions for this project in the example repo. 
+
+If Windows, use: Reporting with https://denisecase.github.io/smart-sales-example/guide/reporting-with-powerBI/
+If Mac/Linux, use: Reporting with https://denisecase.github.io/smart-sales-example/guide/reporting-with-spark/
+
+
+Challenges:
+
+Power BI has to match ODBC or else there will be no connection to the data source
+Install Power BI followed with ODBC DRiver
+https://denisecase.github.io/smart-sales-example/installs/install-powerbi/
+
+Installing Power BI Desktop (Windows)¶
+Power BI Desktop is a free reporting tool for creating dashboards and interactive visualizations.
+
+1. Install Power BI Desktop¶
+Download from the official site: https://powerbi.microsoft.com/downloads
+
+Choose Power BI Desktop (64-bit).
+
+2. Install the ODBC Driver¶
+Power BI needs an ODBC driver to read SQLite or DuckDB databases.
+
+Install the ODBC (Open Database Connectivity) driver and create a Data Name Source:
+
+If using SQLite, see Working with SQLite
+If using DuckDB, see Working with DuckDB
+3. Configure PowerBI to Use the ODBC Driver¶
+Open Power BI Desktop
+Click Get Data / ODBC
+Select the DSN you created
+4. Use PowerBI to Access Tables¶
+Load your dimension and fact tables
+Optional Video¶
+Optional Video: How to Connect Power BI with SQLite Database and Import Data (6 minutes)
+
+https://www.youtube.com/watch?v=v9OG5Ry5zDU
+
+
+# Reporting with PowerBI¶
+Analyze and visualize stored data to generate business intelligence insights Common BI workflow: Connect / Load / Query / Explore / Visualize
+
+Power BI connects to a warehouse using ODBC. We must install Power BI Desktop and create a DSN (Data Source Name) before we can begin reporting.
+
+# Task 1: Set Up PowerBI¶
+Use Power BI Desktop and an ODBC connection to read data from a database.
+
+See the instructions at Install PowerBI and follow the steps to install an ODBC driver and configure the PowerBI DSN.
+
+A short 6-minute video on "How to Connect Power BI with SQLite Database and Import Data" is linked on that page.
+
+# Task 2: Load DW Tables into PowerBI¶
+Start a project by loading the associated tables into PowerBI.
+
+1. Open Power BI Desktop
+2. Click Get Data / ODBC
+3. Select the DSN created earlier (e.g., SmartSalesDSN)
+4. Click OK. Power BI will show a list of available tables
+5. Select all the tables you want to analyze:
+6. Customer table
+7. Product table
+8. Sales table
+9. Click Load to bring the tables into Power BI
+10. Switch to Model view (left panel) to see how the tables are connected
+
+# Task 3: Query & Aggregate Data¶
+Use Power BI Advanced Editor to write a custom SQL queries.
+
+1. In the Home tab, click Transform Data to open Power Query Editor.
+2. In Power Query, click Advanced Editor (top menu).
+3. Delete any existing code and replace it with a new SQL query (example below).
+4. IMPORTANT: You must use your DSN name, table names, and column names for the SQL to work.
+
+```shell
+let
+   source = ODBC.Query("dsn=smartsalesDSN",
+      "SELECT c.name, SUM(s.amount) AS total_spent
+      FROM sale s
+      JOIN customer c ON s.customer_id = c.customer_id
+      GROUP BY c.name
+      ORDER BY total_spent DESC;")
+in
+   source
+```
+
+When done:
+1. Click Done.
+2. Rename the new query (on the left) to something like "Top Customers" that reflects your focus.
+3. Click Close & Apply (upper left) to return to Report view.
+4. This table can now be used in visuals (e.g., a bar chart).
+
+# Task 4: Slice, Dice, and Drilldown¶
+Implement slicing, dicing, and drilldown to analyze sales.
+
+Slicing: Add a date range slicer
+Dicing: Group data by two categorical dimensions
+Drilldown: Aggregate sales by Year > Quarter > Month
+
+# 4a. Slicing in Power BI (by Date)¶
+SQLite doesn't have true date types, so we use Power BI's Transform Data to extract parts of the date for slicing, dicing, and drilldown.
+
+Click Transform Data to open Power Query.
+Select the sales table.
+Select the order_date column (or any "date-related" field).
+On the top menu, click Add Column > Date > Year.
+Then click Add Column > Date > Quarter.
+Then click Add Column > Date > Month > Name of Month.
+Click Close & Apply to save changes and return to the report view.
+Return to Report view (center icon on the left).
+From the Visualizations pane, click on the Slicer icon.
+Drag a date field into the slicer.
+If it doesn't show a range, click the dropdown (upper-right corner of slicer) and select Between to enable a date range slider.
+
+# 4b. Dicing in Power BI (by Product Attributes)¶
+To analyze two categorical dimensions, for example, to explore sales by product attributes (e.g. category and region or other characteristics), create a Matrix visual in Power BI.
+
+Go to Report view.
+From the Visualizations pane, click the Matrix visual to insert a Matrix.
+Drag your first product attribute (e.g. category) to the Rows field well.
+Drag your first product attribute (e.g. region) to the Columns field well.
+Drag a numeric field to the Values field well.
+Format numeric values by using the column dropdown in the Values area.
+This matrix help us dice the data and break it down by two categorical dimensions: e.g., product and region.
+
+# 4c. Drilldown in Power BI (Year > Quarter > Month)¶
+To explore sales over time, we'll use a column or line chart and enable drilldown so we can click into sales by year, quarter, and month.
+
+Go to Report view.
+From the Visualizations pane, click on either the Clustered Column Chart or Line Chart.
+Drag hierarchy fields to the X-Axis or Axis field in order:
+order_year
+order_quarter
+order_month
+Drag your numeric value (e.g., total amount) to Values area.
+At the top left of the chart, click the drilldown arrow icon (a split-down arrow) to enable Drilldown.
+Click on a bar or line point in the chart to drill down from Year > Quarter > Month.
+Use the up arrow to move back up the hierarchy.
+If nothing happens when clicking, make sure the chart supports hierarchy and the drilldown mode is active (look for the split arrow).
+
+# Task 5: Create Visuals¶
+Create visuals to interpret results.
+
+Common charts:
+
+Create a bar chart for Top Customers (or similar)
+Create a line chart for Sales Trends (or similar trend)
+Add a slicer for product categories (or other categorical field)
+To create visuals:
+
+Go to Report View.
+Use the Visualizations pane to choose a chart (e.g., Bar, Line).
+Drag fields into the chart (e.g., customer name to Axis, total spent to Values).
+Use Slicers to filter by category, region, or date if you've added those earlier.
+
+# Challenge
+1. Connecting to data source ODBC - the issue was BI and ODBC 64 versus 32. deleted 32 and re-installed 64.
+2. Date - changing to US format was a bit challenging. Trick is to make sure you are in that format during data transformation processes. Or change formart by using locale...
