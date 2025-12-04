@@ -1,5 +1,4 @@
-"""
-ETL script to load prepared data into the data warehouse (SQLite database).
+"""ETL script to load prepared data into the data warehouse (SQLite database).
 
 File: src/analytics_project/dw/etl_to_dw.py
 
@@ -14,9 +13,10 @@ Purpose:
 
 import pathlib
 import sqlite3
-import pandas as pd
-from analytics_project.utils_logger import logger
 
+import pandas as pd
+
+from analytics_project.utils_logger import logger
 
 # ===============================================================
 # Global path constants
@@ -114,7 +114,7 @@ def insert_customers(
     """Insert only new customer rows to avoid UNIQUE constraint errors."""
     existing_ids = pd.read_sql("SELECT customer_id FROM customer", conn)
     if not existing_ids.empty:
-        customers_df = customers_df[~customers_df['customer_id'].isin(existing_ids['customer_id'])]
+        customers_df = customers_df[~customers_df["customer_id"].isin(existing_ids["customer_id"])]
     if not customers_df.empty:
         logger.info(f"Inserting {len(customers_df)} new customer rows.")
         customers_df.to_sql("customer", conn, if_exists="append", index=False)
@@ -128,7 +128,7 @@ def insert_products(
     """Insert only new product rows to avoid UNIQUE constraint errors."""
     existing_ids = pd.read_sql("SELECT product_id FROM product", conn)
     if not existing_ids.empty:
-        products_df = products_df[~products_df['product_id'].isin(existing_ids['product_id'])]
+        products_df = products_df[~products_df["product_id"].isin(existing_ids["product_id"])]
     if not products_df.empty:
         logger.info(f"Inserting {len(products_df)} new product rows.")
         products_df.to_sql("product", conn, if_exists="append", index=False)
@@ -140,7 +140,7 @@ def insert_sales(sales_df: pd.DataFrame, cursor: sqlite3.Cursor, conn: sqlite3.C
     """Insert only new sale rows to avoid UNIQUE constraint errors."""
     existing_ids = pd.read_sql("SELECT sale_id FROM sale", conn)
     if not existing_ids.empty:
-        sales_df = sales_df[~sales_df['sale_id'].isin(existing_ids['sale_id'])]
+        sales_df = sales_df[~sales_df["sale_id"].isin(existing_ids["sale_id"])]
     if not sales_df.empty:
         logger.info(f"Inserting {len(sales_df)} new sale rows.")
         sales_df.to_sql("sale", conn, if_exists="append", index=False)

@@ -1,5 +1,4 @@
-"""
-ETL script to load prepared data into the data warehouse (SQLite database).
+"""ETL script to load prepared data into the data warehouse (SQLite database).
 
 File: src/analytics_project/dw/etl_to_dw.py
 
@@ -37,6 +36,7 @@ Database names generally follow snake_case conventions for SQL compatibility.
 import pathlib
 import sqlite3
 import sys
+
 import pandas as pd
 
 #: Project root is two levels up from this file
@@ -131,10 +131,10 @@ def delete_existing_records(cursor: sqlite3.Cursor) -> None:
 def insert_customers(customers_df: pd.DataFrame, conn: sqlite3.Connection) -> None:
     """Insert customer data into the customer table."""
     logger.info("Checking for duplicate customer IDs before insertion.")
-    customers_df = customers_df.drop_duplicates(subset=['customer_id'])
+    customers_df = customers_df.drop_duplicates(subset=["customer_id"])
 
     # Keep only columns that exist in the database
-    db_columns = ['customer_id', 'name', 'region', 'join_date']
+    db_columns = ["customer_id", "name", "region", "join_date"]
     customers_df = customers_df[[col for col in db_columns if col in customers_df.columns]]
 
     logger.info(f"Inserting {len(customers_df)} unique customer rows.")
@@ -144,17 +144,17 @@ def insert_customers(customers_df: pd.DataFrame, conn: sqlite3.Connection) -> No
 def insert_products(products_df: pd.DataFrame, conn: sqlite3.Connection) -> None:
     """Insert product data into the product table."""
     logger.info("Checking for duplicate product IDs before insertion.")
-    products_df = products_df.drop_duplicates(subset=['product_id'])
+    products_df = products_df.drop_duplicates(subset=["product_id"])
 
     # Keep only columns that exist in the database
     db_columns = [
-        'product_id',
-        'product_name',
-        'category',
-        'unit_price',
-        'stockQuantity',
-        'Supplier',
-        'discount_amount',
+        "product_id",
+        "product_name",
+        "category",
+        "unit_price",
+        "stockQuantity",
+        "Supplier",
+        "discount_amount",
     ]
     products_df = products_df[[col for col in db_columns if col in products_df.columns]]
 
@@ -165,17 +165,17 @@ def insert_products(products_df: pd.DataFrame, conn: sqlite3.Connection) -> None
 def insert_sales(sales_df: pd.DataFrame, conn: sqlite3.Connection) -> None:
     """Insert sales data into the sale table."""
     logger.info("Checking for duplicate sale IDs before insertion.")
-    sales_df = sales_df.drop_duplicates(subset=['sale_id'])
+    sales_df = sales_df.drop_duplicates(subset=["sale_id"])
 
     # Keep only columns that exist in the database
     db_columns = [
-        'sale_id',
-        'date',
-        'customer_id',
-        'product_id',
-        'state',
-        'discount_amount',
-        'sale_amount',
+        "sale_id",
+        "date",
+        "customer_id",
+        "product_id",
+        "state",
+        "discount_amount",
+        "sale_amount",
     ]
     sales_df = sales_df[[col for col in db_columns if col in sales_df.columns]]
 
