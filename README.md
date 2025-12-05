@@ -622,3 +622,25 @@ Identify the products with the highest number of units sold and  wahtwhat reagio
 
 Conclusion:
 EsatEast region has the highest revenue (total sales) and the top selling product is identified as product _id 2080. This information towill be be useful in  optimizing inventory levels for top sellers (East Region) and ensure marketing efforts focus on products that are already popular, while identifying slow-moving products that may need promotion or discontinuation in the Central, South-west and South Regions. 
+
+
+
+# P7:  Custom BI Project -Final 
+Date: 04-Dec-2025
+
+# Business Goal: 
+
+To identify the product category by supplier with the highest total sale. This helps to determine which products are the best sellers in terms of volume, guiding inventory management and marketing strategies for each supplier (seller). 
+
+# BI Solution
+Used the Power BI
+
+# Workflow
+The data source was prepared from customer, product, and sales CSV files. These files were processed through an ETL pipeline and uploaded into a data warehouse. The warehouse was then connected to Power BI using ODBC as the interface, enabling analysis and visualization of the data
+
+# Insight
+
+![alt text](image-3.png)T
+
+
+There were three suppliers—JALL, Kilimanjaro Co., and Tloma—and the total sales for each supplier were equal. Further analysis (dicing down) indicates that the percentage share of sales by category for each supplier was also comparable. Upon drilling down, the suppliers performed slightly differently across categories: Tloma led in the number and sales of home products, JALL performed better in office products, and Kilimanjaro Co. did better in both clothing and home products. These insights make it easier to make data‑driven decisions on how to effectively manage inventory and design marketing strategie
