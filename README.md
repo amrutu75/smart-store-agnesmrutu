@@ -640,7 +640,7 @@ The data source was prepared from customer, product, and sales CSV files. These 
 
 # Insight
 
-![alt text](image-3.png)T
+![alt text](image-3.png)
 
 
 There were three suppliers—JALL, Kilimanjaro Co., and Tloma—and the total sales for each supplier were equal. Further analysis (dicing down) indicates that the percentage share of sales by category for each supplier was also comparable. Upon drilling down, the suppliers performed slightly differently across categories: Tloma led in the number and sales of home products, JALL performed better in office products, and Kilimanjaro Co. did better in both clothing and home products. These insights make it easier to make data‑driven decisions on how to effectively manage inventory and design marketing strategie
